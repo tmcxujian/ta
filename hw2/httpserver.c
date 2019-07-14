@@ -31,9 +31,6 @@ char *server_files_directory;
 char *server_proxy_hostname;
 int server_proxy_port;
 
-/* Boolean for whether we're still serving requests */
-int serving = 1;
-
 
 /*
  * Reads an HTTP request from stream (fd), and writes an HTTP response
@@ -141,7 +138,7 @@ void serve_forever(int *socket_number, void (*request_handler)(int)) {
 
   init_thread_pool(num_threads, request_handler);
 
-  while (serving) {
+  while (1) {
     /*
      * TODO: Part of your solution to Task 1 goes here!
      */
@@ -150,17 +147,14 @@ void serve_forever(int *socket_number, void (*request_handler)(int)) {
      * TODO: Handle request with request_handler (Task 2) or work queue (Task 3)
      */
   }
-
-  /*
-   * TODO: Task 1 - Done serving requests. What now?
-   */
 }
 
 int server_fd;
 void signal_callback_handler(int signum) {
   printf("Caught signal %d: %s\n", signum, strsignal(signum));
-  printf("Stop serving additional requests.\n");
-  serving = 0;
+  /*
+   * TODO: Part of your solution to Task 1 goes here!
+   */
 }
 
 char *USAGE =
@@ -173,6 +167,7 @@ void exit_with_usage() {
 }
 
 int main(int argc, char **argv) {
+  /* Registering signal handler. When user enteres Ctrl-C, signal_callback_handler will be invoked. */
   struct sigaction sa;
   sa.sa_flags = SA_RESTART;
   sa.sa_handler = &signal_callback_handler;
