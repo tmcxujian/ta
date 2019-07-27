@@ -1,8 +1,8 @@
 package main
 
 import (
+	"./http"
 	"fmt"
-	"github.com/jhkolb/cs162-hw3/http"
 	"io"
 	"io/ioutil"
 	"net"
@@ -26,28 +26,33 @@ var (
 )
 
 func handleFilesRequest(connection net.Conn) {
-    // TODO Fill this in to complete Task #2
+	// TODO Fill this in to complete Task #2
 }
 
 func handleProxyRequest(clientConn net.Conn) {
-    // TODO Fill this in to complete Task #3
-    // Open a connection to the specified upstream server
-    // Create two goroutines to forward traffic
-    // Use sync.WaitGroup to block until the goroutines have finished
+	// TODO Fill this in to complete Task #3
+	// Open a connection to the specified upstream server
+	// Create two goroutines to forward traffic
+	// Use sync.WaitGroup to block until the goroutines have finished
 }
 
 func handleSigInt() {
+	// TODO Fill this in to help complete Task #4
+	// You should run this in its own goroutine
+	// Perform a blocking receive on the 'interrupted' channel
+	// Then, clean up the main and worker goroutines
+	// Finally, when all goroutines have cleanly finished, exit the process
 }
 
 func initWorkerPool(numThreads int, requestHandler func(net.Conn)) {
-    // TODO Fill this in as part of Task #1
-    // Create a fixed number of goroutines to handle requests
+	// TODO Fill this in as part of Task #1
+	// Create a fixed number of goroutines to handle requests
 }
 
 func serveForever(numThreads int, port int, requestHandler func(net.Conn)) {
-    // TODO Fill this in as part of Task #1
-    // Create a Listener and accept client connections
-    // Pass connections to the thread pool via a channel
+	// TODO Fill this in as part of Task #1
+	// Create a Listener and accept client connections
+	// Pass connections to the thread pool via a channel
 }
 
 func exitWithUsage() {
@@ -137,4 +142,3 @@ func main() {
 	signal.Notify(interrupted, os.Interrupt)
 	serveForever(numThreads, serverPort, requestHandler)
 }
-

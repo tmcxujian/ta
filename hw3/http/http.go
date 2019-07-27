@@ -69,7 +69,7 @@ func StartResponse(connection net.Conn, statusCode int) {
 	_, err := fmt.Fprintf(connection, "HTTP/1.0 %d %s\r\n", statusCode, getResponseMessage(statusCode))
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Failed to write response: %s\n", err)
-		os.Exit(-1)
+		os.Exit(1)
 	}
 }
 
@@ -77,7 +77,7 @@ func SendHeader(connection net.Conn, key string, value string) {
 	_, err := fmt.Fprintf(connection, "%s: %s\r\n", key, value)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Failed to write HTTP header: %s\n", err)
-		os.Exit(-1)
+		os.Exit(1)
 	}
 }
 
@@ -85,7 +85,7 @@ func EndHeaders(connection net.Conn) {
 	_, err := fmt.Fprintf(connection, "\r\n")
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Failed to write end to HTTP headers: %s\n", err)
-		os.Exit(-1)
+		os.Exit(1)
 	}
 }
 
@@ -93,7 +93,7 @@ func SendString(connection net.Conn, msg string) {
 	_, err := fmt.Fprintf(connection, msg)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Failed to write string: %s\n", err)
-		os.Exit(-1)
+		os.Exit(1)
 	}
 }
 
@@ -101,7 +101,7 @@ func SendData(connection net.Conn, data []byte) {
 	_, err := connection.Write(data)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Failed to write data: %s\n", err)
-		os.Exit(-1)
+		os.Exit(1)
 	}
 }
 
